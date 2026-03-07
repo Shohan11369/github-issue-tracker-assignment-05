@@ -15,18 +15,55 @@
     <title>Github-issue-tracker</title>
   </head>
   <body>
-
-    <section class="bg-gray-100 flex  items-center justify-center min-h-screen p-4">
-
-        <div class="card w-96 bg-base-100 shadow-xl p-8 border border-gray-200">
-            <div class="text-center mb-8">
-                <img src="" alt="">
-                <h1 class="">GitHub Issues Tracker</h1>
-                <p>Sign in to manage your issues</p>
-            </div>
+    <section
+      class="bg-gray-100 flex items-center justify-center min-h-screen p-4"
+    >
+      <div class="card w-96 bg-base-100 shadow-xl p-8 border border-gray-200">
+        <div class="text-center mb-8 space-y-4">
+          <div class="flex items-center justify-center mb-6">
+            <img src="./assets/github-logo.png" alt="" />
+          </div>
+          <h1 class="text-xl font-bold">GitHub Issues Tracker</h1>
+          <p class="text-[#64748B]">Sign in to manage your issues</p>
         </div>
 
         <!-- form -->
+        <div
+          class="bg-base-200 border-base-300 rounded-box w-80 border py-6 px-5"
+        >
+          <fieldset class="fieldset">
+            <legend class="fieldset-legend text-lg text-center font-semibold">
+              Login
+            </legend>
+
+            <form id="loginForm" class="space-y-4">
+              <label class="label">Username</label>
+              <input
+                type="text"
+                id="username"
+                placeholder="admin"
+                class="input input-bordered w-full"
+                required
+              />
+
+              <label class="label">Password</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="admin123"
+                class="input input-bordered w-full"
+                required
+              />
+
+              <button type="submit" class="btn btn-primary w-full text-white">
+                Sign In
+              </button>
+            </form>
+          </fieldset>
+        </div>
+
+        <!-- bottom part -->
+      </div>
     </section>
   </body>
 </html>
