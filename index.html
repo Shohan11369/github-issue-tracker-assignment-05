@@ -60,15 +60,22 @@
         </div>
       </div>
       <!--  -->
-      <div class="flex gap-5 mt-4 md:mt-0 font-bold text-sm">
+      <div class="flex gap-5 mt-4 md:mt-0 font-bold text-sm mb-6">
         <span>🟢 Open: <span id="openCount">0</span></span>
         <span>🟣 Closed: <span id="closedCount">0</span></span>
       </div>
-      <!--  -->
-      
-    </main>
-    
+      <!-- card-container -->
+      <div id="loading-spinner" class="hidden text-center my-10">
+        <span class="loading loading-spinner loading-lg"></span>
+      </div>
 
-    <script src="script/issues.js"></script>
+      <!--  -->
+      <div
+        id="issue-container"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+      ></div>
+    </main>
+
+    <script src="./script/issues.js"></script>
   </body>
 </html>
