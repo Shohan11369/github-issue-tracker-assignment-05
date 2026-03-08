@@ -12,7 +12,8 @@ const fetchIssues = async () => {
   issueContainer.innerHTML = "";
 
   const res = await fetch("http://phi-lab-server.vercel.app/api/v1/lab/issues");
-  const data = res.json();
+  const data = await res.json();
+  // console.log(data);
 
   //   data set
 
@@ -55,4 +56,32 @@ const displayIssues = (issues) => {
     `;
     issueContainer.appendChild(card);
   });
+};
+
+// tab-filter all,close,open
+
+const filterIssues = (status, element) => {
+  const tabs = document.querySelectorAll(".tab");
+  tabs.forEach((tab) =>
+    tab.classList.remove(
+      "tab-active",
+      "bg-blue-500",
+      "text-white",
+      "rounded-xl",
+    ),
+  );
+
+  element.classList.add(
+    "tab-active",
+    "bg-blue-500",
+    "text-white",
+    "rounded-xl",
+  );
+
+  if (status === "all") {
+    displayIssues(allIssues);
+  } else {
+    const filtered = allIssues.filter((item) => item.status === status);
+    displayIssues(filtered);
+  }
 };
