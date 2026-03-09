@@ -1,4 +1,4 @@
-console.log("hellooo connectedd");
+// console.log("hellooo connectedd");
 
 document.getElementById("loginForm").addEventListener("submit", (e) => {
   e.preventDefault();
@@ -9,7 +9,7 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
   const password = pass.value;
 
   if (username === "admin" && password === "admin123") {
-    window.location.href = "/index.html";
+    window.location.href = "/issues.html";
   } else {
     alert("Wrong password or username");
   }
