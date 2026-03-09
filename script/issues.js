@@ -49,21 +49,30 @@ const displayIssues = (issues) => {
     card.onclick = () => showIssueDetails(issue.id);
 
     card.innerHTML = `
+       <div class="flex justify-end mb-2">
+            <span class="badge badge-sm bg-red-200 text-[16px] text-red-600 px-3 py-4 border-none">${issue.priority}</span>
+       </div>
       <div class="space-y-3">
                 <h3 class="text-lg font-bold text-gray-800">${issue.title}</h3>
                 <p class="text-gray-500 text-sm line-clamp-2">${issue.description}</p>
                 
-                <div class="flex flex-wrap gap-2 pt-2">
+              <div class="flex flex-wrap gap-2 pt-2">
                 ${
                   issue.labels
-                    ?.map(
-                      (label) =>
-                        `<span class="badge badge-sm bg-red-300 text-gray-700 px-4 py-2 border-none">${label}</span>`,
-                    )
+                    ?.map((label, index) => {
+                      const colors = [
+                        "bg-red-100 text-red-800",
+                        "bg-yellow-100 text-red-800",
+                        "bg-blue-200 text-gray-800",
+                        "bg-green-200 text-gray-800",
+                      ];
+
+                      return `<span class="badge badge-sm ${colors[index % colors.length]} px-3 py-4 border-none">${label}</span>`;
+                    })
                     .join("") || `<span class="badge badge-sm">No label</span>`
                 }
-                <span class="badge badge-sm bg-blue-50 text-blue-600 p-3 border-none">${issue.priority}</span>
-                </div>
+              </div>
+
 
 
                 <div class="pt-4 border-t border-gray-100 flex justify-between items-center text-xs text-gray-400">
@@ -97,11 +106,12 @@ const filterIssues = (status, element) => {
   );
 
   if (status === "all") {
-    displayIssues(allIssues);
+    filtered = allIssues;
   } else {
-    const filtered = allIssues.filter((item) => item.status === status);
-    displayIssues(filtered);
+    filtered = allIssues.filter((item) => item.status === status);
   }
+  displayIssues(filtered);
+  updateCounts(filtered);
 };
 
 // search function
@@ -125,6 +135,8 @@ const handleSearch = async () => {
   allIssues = Array.isArray(searchResults) ? searchResults : [];
 
   // displayIssues(Array.isArray(searchResults) ? searchResults : []);
+  displayIssues(allIssues);
+
   updateCounts(searchResults);
   loadingSpinner.classList.add("hidden");
 };
@@ -150,7 +162,7 @@ const showIssueDetails = async (id) => {
                 <p class="text-gray-700 leading-relaxed">${issue.description}</p>
             </div>
             <div class="grid grid-cols-2 gap-4 text-sm pt-4">
-                <p><strong>Priority:</strong> ${issue.priority}</p>
+                <p><strong >Priority:</strong> ${issue.priority}</p>
                 <p><strong>Author:</strong> ${issue.author}</p>
                 <p><strong>Labels:</strong> ${issue.labels ? issue.labels.join(", ") : "No labels"}</p>
                 <p><strong>Date:</strong> ${new Date(issue.createdAt).toLocaleString()}</p>
@@ -164,8 +176,11 @@ const showIssueDetails = async (id) => {
 const updateCounts = (issues) => {
   const open = issues.filter((i) => i.status === "open").length;
   const closed = issues.filter((i) => i.status === "closed").length;
+  const total = issues.length;
+
   document.getElementById("openCount").innerText = open;
   document.getElementById("closedCount").innerText = closed;
+  document.getElementById("totalCount").innerText = total;
 };
 
 fetchIssues();
